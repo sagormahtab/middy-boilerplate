@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR/src
+      - cp .env.$ENV .env
+      - npm install
+      - zip -r package.zip ./ -x "package*" ".git*"
+      - aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file fileb://$CODEBUILD_SRC_DIR/src/package.zip
