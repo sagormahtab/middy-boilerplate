@@ -5,12 +5,12 @@ const httpRouterHandler = require('@middy/http-router');
 const httpHeaderNormalizer = require('@middy/http-header-normalizer');
 const multipartBodyParser = require('@middy/http-multipart-body-parser');
 const { fileConfiguration } = require('./config/constants');
-const { initMongoDB } = require("./utils");
-const { loggerMiddleware } = require("./middlewares/logMiddleware");
+const { loggerMiddleware } = require('./middlewares/logMiddleware');
 
 const routes = require('./routes');
+const { initDB } = require('./config/db');
 
-initMongoDB();
+initDB();
 exports.handler = middy()
   .use(loggerMiddleware())
   .use(httpHeaderNormalizer())
